@@ -24,4 +24,4 @@ deploy:
   github_token: $GITHUB_TOKEN
   local_dir: dist/my-awesome-project
   on:
-    branch: master
+    branch: development
