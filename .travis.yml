@@ -17,7 +17,7 @@ install:
 
 script:
   - yarn lint
-  - yarn build --base-href https://davidcanonieto.github.io/to-do-list-app/
+  - yarn build --base-href https://github.com/davidcanonieto/to-do-list-app
 deploy:
   provider: pages
   skip_cleanup: true
