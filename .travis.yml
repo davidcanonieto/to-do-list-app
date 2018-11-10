@@ -12,7 +12,11 @@ addons:
   chrome: stable
 
 script:
-  - npm run lint
+  - ng lint
+  - ng test
+  - ng build
+  - ng e2e
+  #- npm run lint
   #- npm run test
-  - npm run build
+  #- npm run build
   #- npm run e2e
