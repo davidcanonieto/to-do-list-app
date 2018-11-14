@@ -1,27 +1,22 @@
 language: node_js
 node_js:
-  - "9"
+  - "8"
 dist: trusty
 sudo: false
-
-branches:
-  only:
-  - master
 
 cache:
   directories:
     - node_modules
 
-install:
-  - npm install -g yarn
+addons:
+  chrome: stable
 
 script:
-  - yarn lint
-  - yarn build --base-href https://davidcanonieto.github.io/to-do-list-app/
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  local_dir: dist/my-awesome-project
-  on:
-    branch: master
+  - ng lint
+  #- ng test
+  - ng build
+  #- ng e2e
+  #- npm run lint
+  #- npm run test
+  #- npm run build
+  #- npm run e2e
