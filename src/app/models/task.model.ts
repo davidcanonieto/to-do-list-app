@@ -12,7 +12,7 @@ export class Task {
     status: string;
     tags: Tag[];
 
-    constructor(obj: any) {
+    constructor(obj?: any) {
         if (obj) {
             this.id = obj.id || null;
             this.title = obj.title || null;
