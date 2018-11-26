@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Task } from '../models/task.model';
+import { TasksService } from '../services/tasks.service';
 
 @Component({
     selector: 'app-new-task',
@@ -15,21 +15,18 @@ export class NewTaskComponent implements OnInit {
     firstFormGroup: FormGroup;
     secondFormGroup: FormGroup;
 
-    afs: AngularFirestoreCollection<any>;
-
-    priorityOptions = [
-        { value: 'critical', label: 'Critical', icon: 'flash_on' },
-        { value: 'important', label: 'Important', icon: 'directions_bike' },
-        { value: 'normal', label: 'Normal', icon: 'directions_run' },
-        { value: 'low', label: 'Low', icon: 'directions_walk' }
-    ];
+    priorityOptions = [];
 
     constructor(private _formBuilder: FormBuilder,
-                private db: AngularFirestore) {
-        this.afs = db.collection('tasks');
+                private tasksService: TasksService) {
     }
 
     ngOnInit() {
+        this.setPriorityOptions();
+        this.setForms();
+    }
+
+    setForms() {
         this.firstFormGroup = this._formBuilder.group({
             title: ['', Validators.required],
             description: [''],
@@ -41,13 +38,22 @@ export class NewTaskComponent implements OnInit {
         });
     }
 
+    setPriorityOptions() {
+        this.priorityOptions = this.tasksService.getPriorityOptions();
+    }
+
     saveTask() {
         const newTask = new Task();
+
         newTask.title = this.firstFormGroup.controls['title'].value;
         newTask.description = this.firstFormGroup.controls['description'].value;
         newTask.dueDate = this.secondFormGroup.controls['dueDate'].value;
-        newTask.priority = this.firstFormGroup.controls['priority'].value;
-        this.afs.add(JSON.parse(JSON.stringify(newTask)));
+        newTask.priority = this.priorityOptions.find(priority => {
+            return priority.value === this.firstFormGroup.controls['priority'].value;
+        });
+        newTask.created = new Date();
+
+        this.tasksService.createNewTask(newTask);
     }
 
     isFormValid() {

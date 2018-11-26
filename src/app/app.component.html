@@ -1,6 +1,3 @@
-
-<!-- 
-<router-outlet></router-outlet> -->
-
-<app-new-task></app-new-task>
+<button mat-button (click)="createNewTask()">Create new task</button>
+<app-new-task *ngIf="showNewTaskForm"></app-new-task>
 <app-task-list></app-task-list>

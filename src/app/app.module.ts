@@ -12,6 +12,7 @@ import { NewTaskComponent } from './new-task/new-task.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TaskListComponent } from './task-list/task-list.component';
 import { TaskDetailsComponent } from './task-details/task-details.component';
+import { TasksService } from './services/tasks.service';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,9 @@ import { TaskDetailsComponent } from './task-details/task-details.component';
         FormsModule,
         ReactiveFormsModule
     ],
-    providers: [],
+    providers: [
+        TasksService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

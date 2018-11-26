@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../models/task.model';
 import * as moment from 'moment';
 
@@ -9,15 +9,27 @@ import * as moment from 'moment';
 })
 export class TaskDetailsComponent implements OnInit {
 
+    private DATE_FORMAT = 'MMM D, YY';
+
     @Input()
     task: Task;
 
+    @Output()
+    deleteTaskEmitter: EventEmitter<any> = new EventEmitter<any>();
+
     dueDate: any;
+    timeLeft: any;
+    priority: any;
 
     constructor() { }
 
     ngOnInit() {
-        this.dueDate = moment(this.task.dueDate).fromNow();
+        this.timeLeft = moment(this.task.dueDate).fromNow();
+        this.dueDate = moment(this.task.dueDate).format(this.DATE_FORMAT);
+    }
+
+    deleteTask() {
+        this.deleteTaskEmitter.emit();
     }
 
 }

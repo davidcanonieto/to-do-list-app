@@ -2,19 +2,17 @@ import { User } from './user.model';
 import { Tag } from './tag.model';
 
 export class Task {
-    id: string;
     title: string;
     description: string;
     dueDate: Date;
     created: Date;
     involvedUsers: User[];
-    priority: string;
-    status: string;
+    priority: any;
+    status: any;
     tags: Tag[];
 
     constructor(obj?: any) {
         if (obj) {
-            this.id = obj.id || null;
             this.title = obj.title || null;
             this.description = obj.description || null;
             this.dueDate = obj.dueDate || null;
