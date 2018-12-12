@@ -1,6 +1,5 @@
 import { Task } from './task.model';
 
-
 export class TaskWithId extends Task {
     id: string;
 

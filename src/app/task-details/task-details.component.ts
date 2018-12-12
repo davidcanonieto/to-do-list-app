@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Task } from '../models/task.model';
 import * as moment from 'moment';
+import { TasksService } from '../services/tasks.service';
+import { TaskWithId } from '../models/taskWithId.model';
 
 @Component({
     selector: 'app-task-details',
@@ -12,16 +13,13 @@ export class TaskDetailsComponent implements OnInit {
     private DATE_FORMAT = 'MMM D, YY';
 
     @Input()
-    task: Task;
-
-    @Output()
-    deleteTaskEmitter: EventEmitter<any> = new EventEmitter<any>();
+    task: TaskWithId;
 
     dueDate: any;
     timeLeft: any;
     priority: any;
 
-    constructor() { }
+    constructor(private tasksService: TasksService) { }
 
     ngOnInit() {
         this.timeLeft = moment(this.task.dueDate).fromNow();
@@ -29,7 +27,7 @@ export class TaskDetailsComponent implements OnInit {
     }
 
     deleteTask() {
-        this.deleteTaskEmitter.emit();
+        this.tasksService.deleteTask(this.task.id);
     }
 
 }

@@ -48,7 +48,7 @@ export class TasksService {
 
     }
 
-    deleteTask() {
+    deleteTask(taskId: string) {
 
     }
 
